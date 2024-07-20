@@ -48,15 +48,19 @@
             // if multiple checked
             const checkedSelected = $(".checked-data");
             const checkedValues = []; // => array data [1,5,3,2]
-
+            
             checkedSelected.each(function() {
                 $(this).on("change", function() {
                     const getValue = $(this).val();
                     if($(this).is(":checked")) {
                         alert("is checked = "+getValue)
+                        // save to array
+                        checkedValues.push(getValue);
                         // save value to locaStorage
+                        localStorage.setItem('report_is_checked', JSON.stringify(checkedValues));
                     }else{
                         alert("is unchecked = "+getValue)
+                        // remove value on array
                         // remove value to locaStorage
                     }
                 });
