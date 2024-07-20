@@ -41,7 +41,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        function removeLocalStorage()
+        {
             // check param page url
             const url = new URL(window.location.href);
             const urlParams = new URLSearchParams(url.search);
@@ -50,7 +51,10 @@
                 // if refresh page => clear localStorage
                 localStorage.removeItem('report_is_checked');
             }
+        }
 
+        function checkedData()
+        {
             // if multiple checked
             const checkedSelected = $(".checked-data");
             let checkedValues = []; // => array data ["1","5","3","2"]
@@ -74,6 +78,33 @@
                     }
                 });
             });
+        }
+
+        function getCheckedDataTable()
+        {
+            // get data from localStorage
+            const reportIsChecked = localStorage.getItem('report_is_checked');
+            const arrDataIsChecked = reportIsChecked.split(',');
+
+            // loop value data table from class name checked-data
+            const checkedSelected = $(".checked-data");
+            checkedSelected.each(function() {
+                const dataValue = $(this).val();
+                if(arrDataIsChecked.includes($(this).val())) {
+                    $(this).prop("checked", true);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            // remove LocalStorage
+            removeLocalStorage();
+
+            // checkedData
+            checkedData();
+
+            // getCheckedDataTable
+            getCheckedDataTable();
         });
     </script>
 </body>
