@@ -42,8 +42,14 @@
 
     <script>
         $(document).ready(function() {
-            // if refresh page => clear localStorage
-            localStorage.removeItem('report_is_checked');
+            // check param page url
+            const url = new URL(window.location.href);
+            const urlParams = new URLSearchParams(url.search);
+            const paramPage = urlParams.get('page');
+            if(paramPage === null) {
+                // if refresh page => clear localStorage
+                localStorage.removeItem('report_is_checked');
+            }
 
             // if multiple checked
             const checkedSelected = $(".checked-data");
