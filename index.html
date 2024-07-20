@@ -53,13 +53,13 @@
                 $(this).on("change", function() {
                     const getValue = $(this).val();
                     if($(this).is(":checked")) {
-                        alert("is checked = "+getValue)
+                        // alert("is checked = "+getValue)
                         // save to array
                         checkedValues.push(getValue);
                         // save value to locaStorage
                         localStorage.setItem('report_is_checked', checkedValues);
                     }else{
-                        alert("is unchecked = "+getValue)
+                        // alert("is unchecked = "+getValue)
                         const checkedDataOnLS = localStorage.getItem('report_is_checked');
                         let arr = checkedDataOnLS.split(',');
                         arr = arr.filter(num => num !== getValue);
