@@ -9,33 +9,36 @@
   <body>
     <div class="container">
         <h1>Sample Table List Checked</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Checked</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Jalan Berlubang</td>
-                  <td><input type="checkbox" class="checked-data" name="selected_id" value="5"/></td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Halter Rusak</td>
-                    <td><input type="checkbox" class="checked-data" name="selected_id" value="2"/></td>
-                </tr> 
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Jembatan Miring</td>
-                    <td><input type="checkbox" class="checked-data" name="selected_id" value="3"/></td>
-                </tr>                               
-            </tbody>            
-        </table>
-        <input type="submit" class="btn btn-primary" />
+        <form method="POST" action="unggah.html">
+            <input type="text" class="report-data-collected" name="report_id" />
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Checked</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td>Jalan Berlubang</td>
+                    <td><input type="checkbox" class="checked-data" name="selected_id" value="5"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Halter Rusak</td>
+                        <td><input type="checkbox" class="checked-data" name="selected_id" value="2"/></td>
+                    </tr> 
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Jembatan Miring</td>
+                        <td><input type="checkbox" class="checked-data" name="selected_id" value="3"/></td>
+                    </tr>                               
+                </tbody>            
+            </table>
+            <input type="submit" class="btn btn-primary" />
+        </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -50,6 +53,9 @@
             if(paramPage === null) {
                 // if refresh page => clear localStorage
                 localStorage.removeItem('report_is_checked');
+            }else{
+                // keep data collected
+                collectReportData(); 
             }
         }
 
@@ -68,6 +74,8 @@
                         checkedValues.push(getValue);
                         // save value to locaStorage
                         localStorage.setItem('report_is_checked', checkedValues);
+                        // collect data form localStorage
+                        collectReportData();                        
                     }else{
                         // alert("is unchecked = "+getValue)
                         const checkedDataOnLS = localStorage.getItem('report_is_checked');
@@ -75,6 +83,8 @@
                         arr = arr.filter(num => num !== getValue);
                         checkedValues = arr;
                         localStorage.setItem('report_is_checked', checkedValues);
+                        // collect data form localStorage
+                        collectReportData();                    
                     }
                 });
             });
@@ -94,6 +104,12 @@
                     $(this).prop("checked", true);
                 }
             });
+        }
+
+        function collectReportData()
+        {
+            const reportIsChecked = localStorage.getItem('report_is_checked');
+            $(".report-data-collected").val(reportIsChecked);
         }
 
         $(document).ready(function() {
