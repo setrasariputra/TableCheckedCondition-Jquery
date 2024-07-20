@@ -47,7 +47,7 @@
 
             // if multiple checked
             const checkedSelected = $(".checked-data");
-            const checkedValues = []; // => array data [1,5,3,2]
+            let checkedValues = []; // => array data ["1","5","3","2"]
             
             checkedSelected.each(function() {
                 $(this).on("change", function() {
@@ -57,11 +57,14 @@
                         // save to array
                         checkedValues.push(getValue);
                         // save value to locaStorage
-                        localStorage.setItem('report_is_checked', JSON.stringify(checkedValues));
+                        localStorage.setItem('report_is_checked', checkedValues);
                     }else{
                         alert("is unchecked = "+getValue)
-                        // remove value on array
-                        // remove value to locaStorage
+                        const checkedDataOnLS = localStorage.getItem('report_is_checked');
+                        let arr = checkedDataOnLS.split(',');
+                        arr = arr.filter(num => num !== getValue);
+                        checkedValues = arr;
+                        localStorage.setItem('report_is_checked', checkedValues);
                     }
                 });
             });
