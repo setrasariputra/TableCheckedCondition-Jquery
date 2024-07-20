@@ -21,7 +21,7 @@
                 <tr>
                   <th scope="row">1</th>
                   <td>Jalan Berlubang</td>
-                  <td><input type="checkbox" class="checked-data" name="selected_id" value="1"/></td>
+                  <td><input type="checkbox" class="checked-data" name="selected_id" value="5"/></td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
@@ -42,12 +42,18 @@
 
     <script>
         $(document).ready(function() {
+            // if refresh page => clear localStorage
+            localStorage.removeItem('report_is_checked');
+            
             const checkedSelected = $(".checked-data");
             checkedSelected.on("change", function() {
                 // get value checked
                 const getValue = checkedSelected.val();
                 if(checkedSelected.is(":checked")) {
                     // condition is checked 
+                    // save to localStorage
+                    // key report_is_checked value 1,2,3,5
+                    localStorage.setItem('report_is_checked', getValue);
                     alert('checkbox is checked = '+getValue);
                 }else{
                     // condition is unchecked 
